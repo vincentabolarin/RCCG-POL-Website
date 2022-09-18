@@ -1,0 +1,37 @@
+.navbarItems {
+    background: #3D4161;
+    color: #fff;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    padding: 0.5rem;
+}
+
+.left,
+.right {
+    display: flex;
+}
+
+
+.right ul {
+    list-style: none;
+    display: flex;
+    justify-content: space-between;
+}
+
+.menuItem {
+    font-weight: 600;
+}
+
+.menuItem:not(:last-child) {
+    margin-right: 2rem;
+}
+
+.logoText {
+    margin-left: 1rem;
+    color: white;
+}
+
+.subtitle {
+    margin-top: -5px;
+}
