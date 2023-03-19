@@ -1,0 +1,39 @@
+.container {
+    background-color: white;
+    height: fit-content;
+    margin: 2rem;
+    padding: 2rem;
+}
+
+.title {
+    color: green;
+    margin-bottom: 2rem;
+}
+
+.table {
+    width: 100%;
+}
+
+.table thead, .table tbody {
+    text-align: left;
+}
+
+.table thead {
+    background-color: green;
+    color: #fff;
+}
+
+.table tbody {
+    font-weight: 500;
+}
+
+.table tr:nth-child(even) {
+    background-color: #e2ffe3;
+}
+
+.table, .table th, .table td {
+    border: 1px solid lightgray;
+    border-collapse: collapse;
+    height: 2rem;
+    padding: .5rem;
+}

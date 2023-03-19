@@ -1,10 +1,16 @@
 .navbarItems {
-    background: #3D4161;
+    background: green;
     color: #fff;
     display: flex;
     justify-content: space-between;
     align-items: center;
-    padding: 0.5rem;
+    padding: .5rem 2rem;
+}
+
+.navbarItems a {
+    display: flex;
+    justify-content: space-between;
+    text-transform: uppercase;
 }
 
 .left,
@@ -12,6 +18,9 @@
     display: flex;
 }
 
+.right a:hover {
+    color: yellow;
+}
 
 .right ul {
     list-style: none;
@@ -21,6 +30,7 @@
 
 .menuItem {
     font-weight: 600;
+    font-size: 1.5rem;
 }
 
 .menuItem:not(:last-child) {
