@@ -13,38 +13,39 @@ const HouseFellowshipReportForm = () => {
                     <form className="form">
                         <div className={styles.formItem}>
                             <label htmlFor="date">Date</label>
-                            <input type="date" name="date" id="date" />
+                            <input type="date" name="date" id="date" required />
                         </div>
                         
                         <div className={styles.formItem}>
-                            <label htmlFor="centre">Select your centre</label>
-                            <select name="centre" id="centre">
+                            <label htmlFor="centre">Centre</label>
+                            <select name="centre" id="centre" required>
+                                <option value="select one" disabled>Select One</option>
                                 {
                                     houseFellowships.map((centre) => {
-                                        <option value={centre.centre}>{centre.centre}</option>
+                                        return <option value={`${centre.centre} Centre`} Centre>{centre.centre} Centre</option>
                                     })
                                 }
                             </select>
                         </div>
 
                         <div className={styles.formItem}>
-                            <label htmlFor="men">Men</label>
-                            <input type="number" name="men" id="men" />
+                            <label htmlFor="men">No. of Men</label>
+                            <input type="number" name="men" id="men" placeholder='Enter the number of men' required />
                         </div>
 
                         <div className={styles.formItem}>
-                            <label htmlFor="women">Women</label>
-                            <input type="number" name="women" id="women" />
+                            <label htmlFor="women">No. of Women</label>
+                            <input type="number" name="women" id="women" placeholder='Enter the number of women' required />
                         </div>
 
                         <div className={styles.formItem}>
-                            <label htmlFor="children">Children</label>
-                            <input type="number" name="children" id="children" />
+                            <label htmlFor="children">No. of Children</label>
+                            <input type="number" name="children" id="children" placeholder='Enter the number of children' required />
                         </div>
 
                         <div className={styles.formItem}>
                             <label htmlFor="offering">Offering (₦)</label>
-                            <input type="number" name="offering" id="offering" />
+                            <input type="number" name="offering" id="offering" placeholder='Enter the total Offering amount' required />
                         </div>
 
                         <div className={styles.formItem}>

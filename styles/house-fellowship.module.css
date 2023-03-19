@@ -40,7 +40,7 @@
 
 .button:hover {
     background-color: green;
-    color: white;
+    color: yellow;
     outline: 1px solid white;
 }
 

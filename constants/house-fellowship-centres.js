@@ -107,7 +107,7 @@
             "centre": "Hephzibah",
             "address": "",
             "coordinator": "Mr & Mrs Sylvester Ehimare",
-            "regionalCoordinator": ""
+            "regionalCoordinator": "Mrs"
         }
     ]
 
