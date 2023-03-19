@@ -1,0 +1,49 @@
+.container {
+    background-color: white;
+    width: 90%;
+    height: fit-content;
+    margin: 2rem auto;
+    padding: 2rem;
+    border-radius: 1rem;
+}
+
+.heading {
+    font-size: 4rem;
+    font-weight: 600;
+    text-align: center;
+}
+
+.houseFellowship {
+    color: green;
+    text-transform: uppercase;
+}
+
+.buttonsContainer {
+    width: 40%;
+    margin: 2rem auto;
+    display: flex;
+    justify-content: space-between;
+}
+
+.button {
+    height: 4rem;
+    font-size: 1.5rem;
+    width: fit-content;
+    background-color: white;
+    color: green;
+    padding: 1rem 2rem;
+    border-radius: .5rem;
+    border: none;
+    cursor: pointer;
+    outline: 2px solid green;
+}
+
+.button:hover {
+    background-color: green;
+    color: white;
+    outline: 1px solid white;
+}
+
+/* .button p {
+    font-size;
+} */
