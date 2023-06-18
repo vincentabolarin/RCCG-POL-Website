@@ -35,6 +35,10 @@
                 outline: none;
                 border-radius: 5px;
                 border: 1px solid gray;
+
+                &::placeholder {
+                    opacity: 0.5;
+                }
             }
 
             input[type=submit] {
@@ -62,6 +66,12 @@
                     background-color: rgb(200, 0, 0);
                 }
             }
+        }
+
+        .image {
+            display: flex;
+            justify-content: center;
+            align-items: center;
         }
     }
 }
