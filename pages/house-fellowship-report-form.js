@@ -1,14 +1,22 @@
-import { useRef } from 'react';
-import { getDatabase, ref, set } from "firebase/database";
-import firebaseConfig from '../firebaseConfig.js';
+import { useEffect, useRef, useState } from 'react';
+import { collection, addDoc, serverTimestamp } from "firebase/firestore";
+import { app, firestore } from '../firebaseConfig';
 import styles from '../styles/house-fellowship-report-form.module.scss';
 
 import Navbar from '../components/Navbar';
 import houseFellowships from '../constants/house-fellowship-centres.js';
 
 import Image from 'next/image';
+import SuccessModal from '../components/modals/successModal';
 
 const HouseFellowshipReportForm = () => {
+    const [submissionSuccessful, setSubmissionSuccessful] = useState(true);
+
+    useEffect(() => {
+        const container = document.getElementById("container");
+        container.style.overflow = submissionSuccessful ? "auto" : "hiden";
+    }, [submissionSuccessful]);
+
 
     const dateRef = useRef();
     const centreRef = useRef();
@@ -17,32 +25,38 @@ const HouseFellowshipReportForm = () => {
     const childrenRef = useRef();
     const offeringRef = useRef();
 
-    const submitData = (date, centre, men, women, children, offering) => {
+    const submitData = async (e) => {
+        e.preventDefault();
+        const date = dateRef.current.value;
+        const centre = centreRef.current.value;
+        const men = menRef.current.value;
+        const women = womenRef.current.value;
+        const children = childrenRef.current.value;
+        const offering = offeringRef.current.value;
 
-        // const date = dateRef.current.value;
-        // const centre = centreRef.current.value;
-        // const men = menRef.current.value;
-        // const women = womenRef.current.value;
-        // const children = childrenRef.current.value;
-        // const offering = offeringRef.current.value;
-
-        // const db = getDatabase();
-        // set(ref(db, 'centres/' + centre), {
-        //   date: date,
-        //   men: men,
-        //   women: women,
-        //   children: children,
-        //   offering: offering
-        // });
+        try {
+            const reportRef = await addDoc(collection(firestore, 'centres/' + centre + '/' + date), {
+                date: date,
+                time: serverTimestamp(),
+                centre: centre,
+                men: men,
+                women: women,
+                children: children,
+                offering: offering
+              })
+              setSubmissionSuccessful(true);
+        } catch(e) {
+            console.log(e);
+        }  
     }
 
     return (
         <Navbar>
             <div>
-                <div className={styles.container}>
+                <div className={styles.container} id="container">
                     <h2>Please, fill out the report of your House Fellowship Centre.</h2>
 
-                    <form className="form" onSubmit={submitData()}>
+                    <form className="form" onSubmit={submitData}>
                         <div>
                             <div className={styles.formItem}>
                                 <label htmlFor="date">Date</label>
@@ -51,11 +65,11 @@ const HouseFellowshipReportForm = () => {
                             
                             <div className={styles.formItem}>
                                 <label htmlFor="centre">Centre</label>
-                                <select name="centre" id="centre" required ref={centreRef}>
-                                    <option value="select one" disabled>Select One</option>
+                                <select name="centre" id="centre" required defaultValue="Select One" ref={centreRef}>
+                                    <option value="Select One" disabled>Select One</option>
                                     {
                                         houseFellowships.map((centre) => {
-                                            return <option value={`${centre.centre} Centre`} Centre>{centre.centre} Centre</option>
+                                            return <option value={`${centre.centre} Centre`}>{centre.centre} Centre</option>
                                         })
                                     }
                                 </select>
@@ -83,10 +97,12 @@ const HouseFellowshipReportForm = () => {
 
                             <div className={styles.formItem}>
                                 <input type="submit" name="submit" id="submit" value="Submit" />
+                                {/* <button type="submit">Submit</button> */}
                             </div>
 
                             <div className={styles.formItem}>
                                 <input type="reset" name="reset" id="reset" value="Reset" />
+                                {/* <button type="reset">Reset</button> */}
                             </div>
                         </div>
 
@@ -94,6 +110,7 @@ const HouseFellowshipReportForm = () => {
                             <Image src="/church-building.svg" width="500px" height="500px" />
                         </div>
                     </form>
+                    {submissionSuccessful && <SuccessModal image={"/success-icon.svg"} imageAlt={"Success Icon"} content = {`Your report has been submitted successfully.`} />}
                 </div>
             </div>
         </Navbar>

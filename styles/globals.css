@@ -1,3 +1,10 @@
+:root {
+  --white: #fff;
+  --red: #f00;
+  --red-light: #ff9b9b;
+  --black-transparent: #00000080;
+}
+
 html,
 body {
   padding: 0;

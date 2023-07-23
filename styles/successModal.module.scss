@@ -1,0 +1,12 @@
+.container {
+    padding: 2rem;
+
+    header {
+        display: flex;
+        justify-content: flex-end;
+
+        .close {
+            cursor: pointer;
+        }
+    }
+}
