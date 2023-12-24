@@ -10,20 +10,30 @@ import Image from 'next/image';
 import SuccessModal from '../components/modals/successModal';
 
 const HouseFellowshipReportForm = () => {
-    const [submissionSuccessful, setSubmissionSuccessful] = useState(true);
+    const [displaySuccessModal, setDisplaySuccessModal] = useState(false);
 
     useEffect(() => {
         const container = document.getElementById("container");
-        container.style.overflow = submissionSuccessful ? "auto" : "hiden";
-    }, [submissionSuccessful]);
+        container.style.overflow = displaySuccessModal ? "auto" : "hiden";
+    }, [displaySuccessModal]);
 
-
+    const formRef = useRef();
     const dateRef = useRef();
     const centreRef = useRef();
     const menRef = useRef();
     const womenRef = useRef();
     const childrenRef = useRef();
     const offeringRef = useRef();
+
+    const resetForm = () => {
+        dateRef.current.value = "";
+        centreRef.current.value = "";
+        menRef.current.value = "";
+        womenRef.current.value = "";
+        childrenRef.current.value = "";
+        offeringRef.current.value = "";
+        formRef.reset();
+    }
 
     const submitData = async (e) => {
         e.preventDefault();
@@ -35,7 +45,7 @@ const HouseFellowshipReportForm = () => {
         const offering = offeringRef.current.value;
 
         try {
-            const reportRef = await addDoc(collection(firestore, 'centres/' + centre + '/' + date), {
+            const centerReportRef = await addDoc(collection(firestore, 'centres/' + centre + '/' + date), {
                 date: date,
                 time: serverTimestamp(),
                 centre: centre,
@@ -43,8 +53,18 @@ const HouseFellowshipReportForm = () => {
                 women: women,
                 children: children,
                 offering: offering
-              })
-              setSubmissionSuccessful(true);
+            });
+            const dateReportRef = await addDoc(collection(firestore, 'dates/' + date + '/' + centre), {
+                centre: centre,
+                time: serverTimestamp(),
+                centre: centre,
+                men: men,
+                women: women,
+                children: children,
+                offering: offering
+            });
+            setDisplaySuccessModal(!displaySuccessModal);
+            resetForm();
         } catch(e) {
             console.log(e);
         }  
@@ -56,7 +76,7 @@ const HouseFellowshipReportForm = () => {
                 <div className={styles.container} id="container">
                     <h2>Please, fill out the report of your House Fellowship Centre.</h2>
 
-                    <form className="form" onSubmit={submitData}>
+                    <form ref={formRef} className="form" onSubmit={submitData}>
                         <div>
                             <div className={styles.formItem}>
                                 <label htmlFor="date">Date</label>
@@ -69,7 +89,7 @@ const HouseFellowshipReportForm = () => {
                                     <option value="Select One" disabled>Select One</option>
                                     {
                                         houseFellowships.map((centre) => {
-                                            return <option value={`${centre.centre} Centre`}>{centre.centre} Centre</option>
+                                            return <option key={centre.serialNumber} value={`${centre.centre} Centre`}>{centre.centre} Centre</option>
                                         })
                                     }
                                 </select>
@@ -96,7 +116,7 @@ const HouseFellowshipReportForm = () => {
                             </div>
 
                             <div className={styles.formItem}>
-                                <input type="submit" name="submit" id="submit" value="Submit" />
+                                <input type="submit" name="submit" id="submit" value="Submit" onClick={submitData} />
                                 {/* <button type="submit">Submit</button> */}
                             </div>
 
@@ -110,7 +130,7 @@ const HouseFellowshipReportForm = () => {
                             <Image src="/church-building.svg" width="500px" height="500px" />
                         </div>
                     </form>
-                    {submissionSuccessful && <SuccessModal image={"/success-icon.svg"} imageAlt={"Success Icon"} content = {`Your report has been submitted successfully.`} />}
+                    {displaySuccessModal && <SuccessModal display={displaySuccessModal} setDisplay={setDisplaySuccessModal} title={`Success`} image={"/success-icon.svg"} imageAlt={"Success Icon"} content = {`Your report has been submitted successfully.`} />}
                 </div>
             </div>
         </Navbar>

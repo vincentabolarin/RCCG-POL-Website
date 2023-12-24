@@ -41,7 +41,7 @@ const HouseFellowshipCentres = () => {
                         {
                             houseFellowships.map((houseFellowship) => {
                                 return(
-                                    <tr>
+                                    <tr key={houseFellowship.serialNumber}>
                                         <td>{ houseFellowship.serialNumber }</td>
                                         <td>{ houseFellowship.centre }</td>
                                         <td>{ houseFellowship.address }</td>
