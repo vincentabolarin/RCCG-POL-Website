@@ -2,6 +2,7 @@ import { useState, useEffect } from 'react';
 import Navbar from '../components/Navbar';
 import styles from '../styles/house-fellowship-centres.module.css';
 import houseFellowships from '../constants/house-fellowship-centres.js';
+import BackButton from '../components/BackButton';
 
 const HouseFellowshipCentres = () => {
 
@@ -26,7 +27,11 @@ const HouseFellowshipCentres = () => {
     return (
         <Navbar>
             <div className={styles.container}>
-                <h1 className={styles.title}>HOUSE FELLOWSHIP CENTRES</h1>
+                <div className={styles.header}>
+                    <BackButton />
+                    <h1 className={styles.title}>HOUSE FELLOWSHIP CENTRES</h1>
+                </div>            
+                
                 <table className={styles.table}>
                     <thead>
                         <tr>
